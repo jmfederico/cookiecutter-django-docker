@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  caddy:
+    build: ./docker/caddy
+    env_file:
+      - ./docker/caddy/.env
+    volumes:
+      - ${DATA_DIR:?DATA_DIR}/.caddy:/root/.caddy
+      - ${DATA_DIR:?DATA_DIR}/certs:/srv/certs
+      - ./media:/srv/www/media
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+
+  django:
+    build:
+      context: ./
+      dockerfile: docker/django/Dockerfile
+      target: django
+    env_file:
+      - ./.env
+      - ./docker/django/.env
+    volumes:
+      - ./:/srv/app
+    ports:
+      - "8000:8000/tcp"
+
+  postgres:
+    image: postgres:{{ cookiecutter.postgres_version }}-alpine
+    env_file:
+      - ./docker/postgres/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432/tcp"
+
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:1080/tcp"
+      - "1025:1025/tcp"
+    command: ["bin/maildev", "--web", "1080", "--smtp", "1025"]
+
+volumes:
+  postgres_data:

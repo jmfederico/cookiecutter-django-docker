@@ -1,0 +1,7 @@
+# Exclude everything but what is strictly needed for building images.
+*
+!docker/**/docker-entrypoint.sh
+
+# Required for python apps installations.
+!poetry.lock
+!pyproject.toml

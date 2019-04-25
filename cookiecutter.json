@@ -1,0 +1,12 @@
+{
+    "project_name": "Django Project",
+    "project_slug": "{{ cookiecutter.project_name|trim|lower|replace(' ', '_') }}",
+    "project_title": "{{ cookiecutter.project_name|trim|title|replace(' ', '') }}",
+    "docker_project_name": "{{ cookiecutter.project_title }}",
+    "docker_dir": "docker",
+    "alpine_version": "3.8",
+    "caddy_version": "0.11.5",
+    "python_version": "3.7",
+    "postgres_version": "11",
+    "postgres_user": "{{ cookiecutter.project_slug }}"
+}
