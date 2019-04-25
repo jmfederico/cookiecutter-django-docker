@@ -17,11 +17,6 @@ running Django in Docker.
 * Auto runs migrations on Django image.
 * Allows for custom SSL certificates to be used.
 
-## Requirements
-
-* Poetry  
-  Docker images assume that Poetry is being used as package manager.
-
 ## How to use
 
 Run the following commands inside you root projects directory.
