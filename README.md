@@ -11,7 +11,7 @@ running Django in Docker.
 * Serves on HTTPS.
 * Uses [Alpine](https://alpinelinux.org) for base docker images.
 * Includes a development [mail server](http://djfarrelly.github.io/MailDev/).
-* [Poetry](http://poetry.eustace.io) for package management.
+* [Poetry](http://poetry.eustace.io) as package management.
 * Includes example dotenv files compatible with [dotenver](https://pypi.org/project/dotenver/).
 * Builds Psycopg2 and Pillow wheels for Alpine Linux.
 * Auto runs migrations on Django image.
