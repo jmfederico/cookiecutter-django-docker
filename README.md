@@ -5,13 +5,13 @@ running Django in Docker.
 
 ## Features
 
-* Uses [PostgreSQL](http://postgresql.org) as database.
+* Uses [PostgreSQL](https://postgresql.org) as database.
 * Uses [Caddy](https://caddyserver.com) as web-server (with
 [Cloudflare](https://caddyserver.com/docs/tls.dns.cloudflare) plugin).
 * Serves on HTTPS.
 * Uses [Alpine](https://alpinelinux.org) for base docker images.
-* Includes a development [mail server](http://djfarrelly.github.io/MailDev/).
-* [Poetry](http://poetry.eustace.io) as package management.
+* [Poetry](https://poetry.eustace.io) as package manager.
+* Includes a development [mail server](https://danfarrelly.nyc/MailDev/).
 * Includes example dotenv files compatible with [dotenver](https://pypi.org/project/dotenver/).
 * Builds Psycopg2 and Pillow wheels for Alpine Linux.
 * Auto runs migrations on Django image.
@@ -70,3 +70,10 @@ docker-compose up -d
 ```
 
 Now you can visit https://localhost/
+
+## Running commands
+The recommended way to run commands is inside the Django container:
+```bash
+# Create Django migrations
+docker-compose run --rm django ./manage.py makemigrations
+````
