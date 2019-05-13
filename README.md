@@ -19,10 +19,13 @@ running Django in Docker. Optimized for [Cookiecutter Django](https://github.com
 
 ## How to use
 
+If you are not using the recommended [Cookiecutter Django](https://github.com/jmfederico/cookiecutter-django)
+template, use the following instructions as a guide on how to use this cookiecutter.
+
 Run the following commands inside you root projects directory.
 
 ```bash
-# Grab cookie and generate files
+# Bake cookie!
 cookiecutter gh:jmfederico/cookiecutter-django-docker
 ```
 
@@ -39,7 +42,7 @@ poetry add psycopg2
 ```
 
 ```bash
-# Create you Django project
+# Create your Django project
 poetry run django-admin startproject MY-PROJECT .
 ```
 
@@ -71,7 +74,13 @@ docker-compose up -d
 
 Now you can visit https://localhost/
 
+### Not using Webpack?
+
+If you are not using Webpack you should delete the Webpack container
+from the `docker-compose.yml` file.
+
 ## Running commands
+
 The recommended way to run commands is inside the Django container:
 ```bash
 # Create Django migrations
