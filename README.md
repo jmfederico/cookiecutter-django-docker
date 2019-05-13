@@ -1,7 +1,7 @@
-# Docker for Django
+# Docker for Django Cookiecutter
 
 An opinionated [Cookiecutter](https://github.com/audreyr/cookiecutter) template for
-running Django in Docker.
+running Django in Docker. Optimized for [Cookiecutter Django](https://github.com/jmfederico/cookiecutter-django).
 
 ## Features
 

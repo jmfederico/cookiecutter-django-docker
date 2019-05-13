@@ -7,6 +7,7 @@
     "alpine_version": "3.8",
     "caddy_version": "0.11.5",
     "python_version": "3.7",
+    "node_version": "10",
     "postgres_version": "11",
     "postgres_user": "{{ cookiecutter.project_slug }}"
 }
