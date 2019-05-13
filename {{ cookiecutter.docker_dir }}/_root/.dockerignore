@@ -5,3 +5,7 @@
 # Required for python apps installations.
 !poetry.lock
 !pyproject.toml
+
+# Required for node apps installations.
+!package.json
+!package-lock.json
