@@ -33,6 +33,8 @@ services:
       - ./:/srv/app
     ports:
       - "8000:8000/tcp"
+    stdin_open: true
+    tty: true
 
   webpack:
     build:
