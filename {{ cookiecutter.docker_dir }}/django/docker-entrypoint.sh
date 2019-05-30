@@ -15,11 +15,16 @@ then
     done
 fi
 
-# Run migrations only if django server is being run.
+# Run only if django server is being run.
 if [[ $@ == *" manage.py runserver "* ]]
 then
+    # Migrations
     >&2 echo "Running Django migrations"
     ./manage.py migrate --noinput
+
+    # Migrations
+    >&2 echo "Freezing requirements"
+    pip freeze > requirements.txt
 fi
 
 exec "$@"

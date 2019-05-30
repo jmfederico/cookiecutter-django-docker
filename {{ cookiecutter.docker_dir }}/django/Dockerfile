@@ -61,8 +61,11 @@ RUN if [ -s "pillow-version" ]; \
 #
 FROM python:{{ cookiecutter.python_version }}-alpine{{ cookiecutter.alpine_version }} as django
 
-RUN pip --no-cache-dir install -U poetry
-RUN apk add --no-cache postgresql-libs postgresql-client libjpeg bash
+RUN wget -O - https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+ENV PATH="/root/.poetry/bin:${PATH}"
+RUN apk add --no-cache bash
+RUN apk add --no-cache postgresql-libs postgresql-client
+RUN apk add --no-cache libjpeg
 WORKDIR /srv/app
 
 RUN poetry config settings.virtualenvs.create false
