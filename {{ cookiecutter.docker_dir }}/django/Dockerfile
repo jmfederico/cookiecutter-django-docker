@@ -66,6 +66,7 @@ ENV PATH="/root/.poetry/bin:${PATH}"
 RUN apk add --no-cache bash
 RUN apk add --no-cache postgresql-libs postgresql-client
 RUN apk add --no-cache libjpeg
+RUN apk add --no-cache gettext
 WORKDIR /srv/app
 
 RUN poetry config settings.virtualenvs.create false
