@@ -4,7 +4,7 @@
 # Calculating package versions in a separate build avoids running
 # builder images everytime poetry.lock or pyproject.toml change.
 #
-FROM python:{{ cookiecutter.python_version }}-alpine{{ cookiecutter.alpine_version }} as versions
+FROM python:{{ cookiecutter.python_version }}-alpine as versions
 
 RUN pip --no-cache-dir install -U poetry
 
@@ -23,7 +23,7 @@ RUN poetry show pillow | grep version | sed -E 's/[^0-9]*([0-9.]+).*/\1/' > /srv
 #
 # Psycopg2 builder image
 #
-FROM python:{{ cookiecutter.python_version }}-alpine{{ cookiecutter.alpine_version }} as psycopg2-wheel
+FROM python:{{ cookiecutter.python_version }}-alpine as psycopg2-wheel
 
 RUN apk add --no-cache postgresql-dev
 RUN apk add --no-cache gcc
@@ -41,7 +41,7 @@ RUN if [ -s "psycopg2-version" ]; \
 #
 # Pillow building image
 #
-FROM python:{{ cookiecutter.python_version }}-alpine{{ cookiecutter.alpine_version }} as pillow-wheel
+FROM python:{{ cookiecutter.python_version }}-alpine as pillow-wheel
 
 RUN apk add --no-cache gcc
 RUN apk add --no-cache musl-dev
@@ -59,7 +59,7 @@ RUN if [ -s "pillow-version" ]; \
 #
 # Django image
 #
-FROM python:{{ cookiecutter.python_version }}-alpine{{ cookiecutter.alpine_version }} as django
+FROM python:{{ cookiecutter.python_version }}-alpine as django
 
 RUN wget -O - https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 ENV PATH="/root/.poetry/bin:${PATH}"
