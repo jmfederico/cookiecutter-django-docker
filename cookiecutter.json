@@ -4,7 +4,7 @@
     "project_title": "{{ cookiecutter.project_slug|replace('_', ' ')|title|replace(' ', '') }}",
     "docker_project_name": "{{ cookiecutter.project_title }}",
     "docker_dir": "docker",
-    "alpine_version": "3.8",
+    "caddy_alpine_version": "3.8",
     "caddy_version": "1.0.1",
     "python_version": "3.7",
     "node_version": "12",

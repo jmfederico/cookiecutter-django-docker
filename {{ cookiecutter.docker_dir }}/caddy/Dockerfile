@@ -5,7 +5,7 @@ ARG plugins="realip,cloudflare"
 
 RUN VERSION=${version} PLUGINS=${plugins} /bin/sh /usr/bin/builder.sh
 
-FROM alpine:{{ cookiecutter.alpine_version }}
+FROM alpine:{{ cookiecutter.caddy_alpine_version }}
 
 RUN apk --no-cache add curl openssl
 
