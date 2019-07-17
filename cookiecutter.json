@@ -5,9 +5,9 @@
     "docker_project_name": "{{ cookiecutter.project_title }}",
     "docker_dir": "docker",
     "alpine_version": "3.8",
-    "caddy_version": "0.11.5",
+    "caddy_version": "1.0.1",
     "python_version": "3.7",
-    "node_version": "10",
+    "node_version": "12",
     "postgres_version": "11",
     "postgres_user": "{{ cookiecutter.project_slug }}"
 }
