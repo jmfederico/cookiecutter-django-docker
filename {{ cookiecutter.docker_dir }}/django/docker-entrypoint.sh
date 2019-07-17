@@ -22,7 +22,7 @@ then
     >&2 echo "Running Django migrations"
     ./manage.py migrate --noinput
 
-    # Migrations
+    # PIP requirements for easy Heroku deploy
     >&2 echo "Freezing requirements"
     pip freeze > requirements.txt
 fi

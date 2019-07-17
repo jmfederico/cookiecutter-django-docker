@@ -6,7 +6,7 @@ running Django in Docker. Optimized for [Cookiecutter Django](https://github.com
 ## Features
 
 * Uses [PostgreSQL](https://postgresql.org) as database.
-* Uses [Caddy](https://caddyserver.com) as web-server (with
+* Uses [Caddy](https://caddyserver.com) as web-server (optionally with
 [Cloudflare](https://caddyserver.com/docs/tls.dns.cloudflare) plugin).
 * Serves on HTTPS.
 * Uses [Alpine](https://alpinelinux.org) for base docker images.
