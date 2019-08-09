@@ -25,7 +25,6 @@ services:
     build:
       context: ./
       dockerfile: docker/django/Dockerfile
-      target: django
     env_file:
       - ./.env
       - ./docker/django/.env

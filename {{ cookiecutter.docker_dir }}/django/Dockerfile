@@ -1,81 +1,17 @@
 #
-# Image to calculate wheels' versions
-#
-# Calculating package versions in a separate build avoids running
-# builder images everytime poetry.lock or pyproject.toml change.
-#
-FROM python:{{ cookiecutter.python_version }}-alpine as versions
-
-RUN pip --no-cache-dir install -U poetry
-
-WORKDIR /srv/wheels
-
-RUN poetry config settings.virtualenvs.create false
-
-COPY poetry.lock .
-COPY pyproject.toml .
-
-# Always create files, even if no package is found. Required in builder images.
-RUN poetry show psycopg2 | grep version | sed -E 's/[^0-9]*([0-9.]+).*/\1/' > /srv/wheels/psycopg2-version
-RUN poetry show pillow | grep version | sed -E 's/[^0-9]*([0-9.]+).*/\1/' > /srv/wheels/pillow-version
-
-
-#
-# Psycopg2 builder image
-#
-FROM python:{{ cookiecutter.python_version }}-alpine as psycopg2-wheel
-
-RUN apk add --no-cache postgresql-dev
-RUN apk add --no-cache gcc
-RUN apk add --no-cache musl-dev
-
-WORKDIR /srv/wheels
-
-COPY --from=versions /srv/wheels/psycopg2-version .
-# If no version, do not install.
-RUN if [ -s "psycopg2-version" ]; \
-    then pip wheel psycopg2==$(cat psycopg2-version); \
-    fi
-
-
-#
-# Pillow building image
-#
-FROM python:{{ cookiecutter.python_version }}-alpine as pillow-wheel
-
-RUN apk add --no-cache gcc
-RUN apk add --no-cache musl-dev
-RUN apk add --no-cache jpeg-dev zlib-dev
-
-WORKDIR /srv/wheels
-
-COPY --from=versions /srv/wheels/pillow-version .
-# If no version, do not install.
-RUN if [ -s "pillow-version" ]; \
-    then pip wheel pillow==$(cat pillow-version); \
-    fi
-
-
-#
 # Django image
 #
-FROM python:{{ cookiecutter.python_version }}-alpine as django
+FROM python:{{ cookiecutter.python_version }}
 
 RUN wget -O - https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 ENV PATH="/root/.poetry/bin:${PATH}"
-RUN apk add --no-cache bash
-RUN apk add --no-cache postgresql-libs postgresql-client
-RUN apk add --no-cache libjpeg
-RUN apk add --no-cache gettext
+RUN apt-get update && apt-get install -y \
+    postgresql-client-{{ cookiecutter.postgres_version|int }} \
+    gettext
+
 WORKDIR /srv/app
 
 RUN poetry config settings.virtualenvs.create false
-
-COPY --from=psycopg2-wheel /srv/wheels/ /srv/wheels/
-COPY --from=pillow-wheel /srv/wheels/ /srv/wheels/
-RUN if ls /srv/wheels/*.whl; \
-    then pip --no-cache-dir install /srv/wheels/*.whl; \
-    fi
 
 COPY poetry.lock .
 COPY pyproject.toml .

@@ -9,11 +9,10 @@ running Django in Docker. Optimized for [Cookiecutter Django](https://github.com
 * Uses [Caddy](https://caddyserver.com) as web-server (optionally with
 [Cloudflare](https://caddyserver.com/docs/tls.dns.cloudflare) plugin).
 * Serves on HTTPS.
-* Uses [Alpine](https://alpinelinux.org) for base docker images.
+* Uses [Alpine](https://alpinelinux.org) as base docker image (except for the Django one).
 * [Poetry](https://poetry.eustace.io) as package manager.
 * Includes a development [mail server](https://danfarrelly.nyc/MailDev/).
 * Includes example dotenv files compatible with [dotenver](https://pypi.org/project/dotenver/).
-* Builds Psycopg2 and Pillow wheels for Alpine Linux.
 * Auto runs migrations on Django image.
 * Allows for custom SSL certificates to be used.
 
