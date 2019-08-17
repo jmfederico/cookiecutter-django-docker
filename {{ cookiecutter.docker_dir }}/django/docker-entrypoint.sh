@@ -16,7 +16,7 @@ then
 fi
 
 # Run only if django server is being run.
-if [[ $@ == *" manage.py runserver "* ]]
+if [[ $@ == *"manage.py runserver"* ]]
 then
     # Migrations
     >&2 echo "Running Django migrations"
