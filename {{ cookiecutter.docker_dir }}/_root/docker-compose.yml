@@ -30,6 +30,8 @@ services:
       - ./docker/django/.env
     volumes:
       - ./:/srv/app
+      # Keep virtual environment out of Docker.
+      - /srv/app/.venv
     ports:
       - "8000:8000/tcp"
     stdin_open: true
@@ -42,11 +44,13 @@ services:
     env_file:
       - ./docker/webpack/.env
     volumes:
+      - ${DATA_DIR:?DATA_DIR}/.caddy:/root/.caddy
+      - ${DATA_DIR:?DATA_DIR}/certs:/srv/certs
       - ./:/srv/app
       # Override `node_modules` to isolate it from local mount.
       - /srv/app/node_modules/
-      - ${DATA_DIR:?DATA_DIR}/.caddy:/root/.caddy
-      - ${DATA_DIR:?DATA_DIR}/certs:/srv/certs
+      # Keep virtual environment out of Docker.
+      - /srv/app/.venv
     ports:
       - "55555:55555/tcp"
 
