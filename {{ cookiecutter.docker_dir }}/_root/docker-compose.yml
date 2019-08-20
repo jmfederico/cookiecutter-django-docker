@@ -5,6 +5,7 @@ services:
     env_file:
       - ./docker/caddy/.env
     volumes:
+      - ./docker/caddy/conf:/srv/caddy
       - ${DATA_DIR:?DATA_DIR}/.caddy:/root/.caddy
       - ${DATA_DIR:?DATA_DIR}/certs:/srv/certs
       - ./media:/srv/www/media
