@@ -4,6 +4,7 @@
     "project_title": "{{ cookiecutter.project_slug|replace('_', ' ')|title|replace(' ', '') }}",
     "docker_dir": "docker",
     "caddy_version": "1.0.3",
+    "mkcert_version": "1.4.0",
     "python_version": "3.7",
     "node_version": "12",
     "postgres_version": "11"
