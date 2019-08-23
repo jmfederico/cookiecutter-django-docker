@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $@ == *" manage.py "* ]]
+# Initialize with empty value bye default
+DATABASE_URL=${DATABASE_URL:-""}
+
+# Wait for Postgres for Django related commands.
+if [[ $@ == *"manage.py "* && ! -z "$DATABASE_HOST" && -z "$DATABASE_URL" ]]
 then
     RETRIES=60
     >&2 echo "Waiting for Postgres"
@@ -18,13 +22,17 @@ fi
 # Run only if django server is being run.
 if [[ $@ == *"manage.py runserver"* ]]
 then
+    # Translations
+    >&2 echo "Compiling Django translations (background job)"
+    ./manage.py compilemessages &
+
     # Migrations
-    >&2 echo "Running Django migrations"
-    ./manage.py migrate --noinput
+    >&2 echo "Running Django migrations (background job)"
+    ./manage.py migrate --noinput &
 
     # PIP requirements for easy Heroku deploy
-    >&2 echo "Freezing requirements"
-    pip freeze > requirements.txt
+    >&2 echo "Freezing requirements (background job)"
+    pip freeze > requirements.txt &
 fi
 
 exec "$@"
