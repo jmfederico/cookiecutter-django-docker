@@ -6,7 +6,7 @@ FROM python:{{ cookiecutter.python_version }}
 RUN wget -O - https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 ENV PATH="/root/.poetry/bin:${PATH}"
 RUN apt-get update && apt-get install -y \
-    postgresql-client-{{ cookiecutter.postgres_version|int }} \
+    postgresql-client \
     gettext
 
 WORKDIR /srv/app
