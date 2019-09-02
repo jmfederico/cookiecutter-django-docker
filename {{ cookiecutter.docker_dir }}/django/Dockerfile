@@ -5,6 +5,7 @@ FROM python:{{ cookiecutter.python_version }}
 
 RUN wget -O - https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 ENV PATH="/root/.poetry/bin:${PATH}"
+RUN echo "\n" | sh -c "$(curl https://salsa.debian.org/postgresql/postgresql-common/raw/master/pgdg/apt.postgresql.org.sh)"
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     gettext
