@@ -8,7 +8,8 @@ ENV PATH="/root/.poetry/bin:${PATH}"
 RUN echo "\n" | sh -c "$(curl https://salsa.debian.org/postgresql/postgresql-common/raw/master/pgdg/apt.postgresql.org.sh)"
 RUN apt-get update && apt-get install -y \
     postgresql-client \
-    gettext
+    gettext \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /srv/app
 
