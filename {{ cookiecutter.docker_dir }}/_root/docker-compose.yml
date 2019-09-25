@@ -5,10 +5,10 @@ services:
     env_file:
       - ./docker/caddy/.env
     volumes:
-      - ./docker/caddy/conf:/srv/caddy
-      - ./docker/.dev/.caddy:/root/.caddy
-      - ./docker/.dev/certs:/srv/certs
-      - ./media:/srv/www/media
+      - ./docker/caddy/conf:/srv/caddy:cached
+      - ./docker/.dev/.caddy:/root/.caddy:delegated
+      - ./docker/.dev/certs:/srv/certs:cached
+      - ./media:/srv/www/media:cached
     ports:
       - "80:80/tcp"
       - "443:443/tcp"
@@ -30,7 +30,7 @@ services:
       - ./.env
       - ./docker/django/.env
     volumes:
-      - ./:/srv/app
+      - ./:/srv/app:cached
       # Keep virtual environment out of Docker.
       - /srv/app/.venv
     ports:
@@ -45,9 +45,9 @@ services:
     env_file:
       - ./docker/webpack/.env
     volumes:
-      - ./docker/.dev/.caddy:/root/.caddy
-      - ./docker/.dev/certs:/srv/certs
-      - ./:/srv/app
+      - ./docker/.dev/.caddy:/root/.caddy:delegated
+      - ./docker/.dev/certs:/srv/certs:cached
+      - ./:/srv/app:cached
       # Override `node_modules` to isolate it from local mount.
       - /srv/app/node_modules/
       # Keep virtual environment out of Docker.
