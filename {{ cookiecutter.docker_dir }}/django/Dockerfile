@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /srv/app
 
-RUN poetry config settings.virtualenvs.create false
+RUN poetry config virtualenvs.create false
 
 COPY poetry.lock .
 COPY pyproject.toml .
