@@ -1,4 +1,4 @@
-FROM node:{{ cookiecutter.node_version }}-alpine
+FROM node:{{ cookiecutter.node_version }}
 
 WORKDIR /srv/app
 
