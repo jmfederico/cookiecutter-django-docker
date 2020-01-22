@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   caddy:
+    container_name: {{ cookiecutter.project_slug }}_caddy
     build: ./docker/caddy
     env_file:
       - ./docker/caddy/.env
@@ -14,15 +15,17 @@ services:
       - "443:443/tcp"
 
   postgres:
+    container_name: {{ cookiecutter.project_slug }}_postgres
     image: postgres:{{ cookiecutter.postgres_version }}-alpine
     env_file:
       - ./docker/postgres/.env
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data.devel:/var/lib/postgresql/data
     ports:
       - "5432:5432/tcp"
 
   django:
+    container_name: {{ cookiecutter.project_slug }}_django
     build:
       context: ./
       dockerfile: docker/django/Dockerfile
@@ -39,6 +42,7 @@ services:
     tty: true
 
   webpack:
+    container_name: {{ cookiecutter.project_slug }}_webpack
     build:
       context: ./
       dockerfile: docker/webpack/Dockerfile
@@ -48,14 +52,15 @@ services:
       - ./docker/.dev/.caddy:/root/.caddy:delegated
       - ./docker/.dev/certs:/srv/certs:cached
       - ./:/srv/app:cached
-      # Override `node_modules` to isolate it from local mount.
-      - /srv/app/node_modules/
       # Keep virtual environment out of Docker.
       - /srv/app/.venv
+      # Override `node_modules` to isolate it from local mount.
+      - /srv/app/node_modules/
     ports:
       - "55555:55555/tcp"
 
   maildev:
+    container_name: {{ cookiecutter.project_slug }}_maildev
     image: djfarrelly/maildev
     ports:
       - "1080:1080/tcp"
@@ -63,4 +68,4 @@ services:
     command: ["bin/maildev", "--web", "1080", "--smtp", "1025"]
 
 volumes:
-  postgres_data:
+  postgres_data.devel:
