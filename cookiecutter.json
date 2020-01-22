@@ -5,7 +5,7 @@
     "docker_dir": "docker",
     "caddy_version": "1.0.3",
     "mkcert_version": "1.4.1",
-    "python_version": "3.7",
+    "python_version": "3.8",
     "node_version": "12",
     "postgres_version": "12"
 }
