@@ -32,7 +32,7 @@ then
 
     # PIP requirements for easy Heroku deploy
     >&2 echo "Freezing requirements (background job)"
-    pip freeze > requirements.txt &
+    poetry export -f requirements.txt -o requirements.txt &
 fi
 
 exec "$@"
